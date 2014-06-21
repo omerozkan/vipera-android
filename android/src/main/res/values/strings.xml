@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">Vipera</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="action_settings">Settings</string>
+    <string name="title_activity_login">Giriş Yap</string>
+    <string name="cikis_yap">Çıkış Yap</string>
+
+    <color name="background">#003333</color>
+    <color name="white">#ffffff</color>
+
+    <string name="title_activity_error">Error</string>
+
+    <string name="play_error">Cihazınızda Google Play Servisleri bulunmamaktadır.
+        Lütfen öncelikle Google Play Servislerini yükleyiniz!</string>
+
+</resources>

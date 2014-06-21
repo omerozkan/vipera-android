@@ -1,0 +1,9 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context="info.ozkan.vipera.android.MainActivity" >
+    
+    <item android:id="@+id/logout"
+        android:title="@string/cikis_yap"
+        android:orderInCategory="100"
+        android:showAsAction="never" />
+</menu>
