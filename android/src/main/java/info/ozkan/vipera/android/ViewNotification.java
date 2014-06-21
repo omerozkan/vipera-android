@@ -44,7 +44,7 @@ public class ViewNotification extends Activity {
 
     private void updateScreen(Intent intent) {
 
-        fieldNameTV.setText(intent.getStringExtra("fieldName"));
+        fieldNameTV.setText(intent.getStringExtra("fieldName") + ": ");
         patientNameTV.setText(intent.getStringExtra("patientName"));
         fieldValueTV.setText(intent.getStringExtra("fieldValue")
                 + " " + intent.getStringExtra("fieldUnit"));
