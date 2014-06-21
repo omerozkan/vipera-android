@@ -28,7 +28,7 @@
         android:layout_below="@+id/textView1"
         android:ems="10"
         android:textColor="#FFFFFF"
-        android:text="http://192.168.0.18:8080/vipera" >
+        android:text="http://" >
 
     </EditText>
 
@@ -53,7 +53,6 @@
         android:layout_alignParentRight="true"
         android:layout_below="@+id/textView2"
         android:ems="10"
-        android:text="eeda2ced4fede33c"
         android:textColor="#FFFFFF" >
 
     </EditText>
@@ -80,13 +79,5 @@
         android:layout_alignParentRight="true"
         android:textColor="#fff"
         android:text="Bağlan" />
-
-    <ProgressBar
-        style="?android:attr/progressBarStyleLarge"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/progressBar"
-        android:layout_alignTop="@+id/textView1"
-        android:layout_centerHorizontal="true" />
 
 </RelativeLayout>
