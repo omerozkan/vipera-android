@@ -23,11 +23,12 @@
         android:allowBackup="true"
         android:icon="@drawable/ic_launcher"
         android:label="@string/app_name"
-        android:theme="@style/AppTheme" >
+        android:theme="@style/AppTheme"
+        android:noHistory="true" >
         <activity
             android:name="info.ozkan.vipera.android.MainActivity"
-            android:label="@string/app_name"
-            android:noHistory="true" >
+            android:label="@string/app_name">
+
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -58,6 +59,10 @@
         <activity
             android:name="info.ozkan.vipera.android.ErrorActivity"
             android:label="Vipera - Hata" >
+        </activity>
+        <activity
+            android:name="info.ozkan.vipera.android.ViewNotification"
+            android:label="@string/title_activity_view_notification" >
         </activity>
     </application>
 

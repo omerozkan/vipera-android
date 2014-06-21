@@ -9,10 +9,11 @@
 
     <color name="background">#003333</color>
     <color name="white">#ffffff</color>
+    <color name="style1">#ffff66</color>
 
     <string name="title_activity_error">Error</string>
-
     <string name="play_error">Cihazınızda Google Play Servisleri bulunmamaktadır.
         Lütfen öncelikle Google Play Servislerini yükleyiniz!</string>
+    <string name="title_activity_view_notification">Bildirim</string>
 
 </resources>

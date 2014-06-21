@@ -7,7 +7,6 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.provider.DocumentsContract;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -20,11 +19,11 @@ import info.ozkan.vipera.android.setting.Setting;
 
 
 public class MainActivity extends Activity {
+    private static final String TAG = "MainActivity";
     private TextView doctorTextView;
     private Context context;
     private SharedPreferences prefs;
     private ProgressDialog mProgressDialog;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -32,7 +31,11 @@ public class MainActivity extends Activity {
         context = getApplicationContext();
         doctorTextView = (TextView) findViewById(R.id.textView_doctorName);
 
+
         checkLogin();
+
+        context = getApplicationContext();
+
 
     }
 
@@ -44,6 +47,8 @@ public class MainActivity extends Activity {
         } else {
             startActivity(new Intent(MainActivity.this, LoginActivity.class));
         }
+
+        Log.i(TAG, "onCreate");
     }
 
     @Override
@@ -51,6 +56,7 @@ public class MainActivity extends Activity {
         super.onResume();
         checkLogin();
     }
+
     /**
      * @return Application's {@code SharedPreferences}.
      */
@@ -80,6 +86,18 @@ public class MainActivity extends Activity {
             return true;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+
+    private String unregisterFromVipera() {
+        String apiKey = prefs.getString(Setting.API_KEY, "");
+        String registerId = prefs.getString(Setting.PROPERTY_REG_ID, "");
+        String url = prefs.getString(Setting.VIPERA_URL, "");
+        RegistrationProvider registrationProvider = new RegistrationProvider();
+        registrationProvider.setApiKey(apiKey);
+        registrationProvider.setRegisterId(registerId);
+        registrationProvider.setUrl(url);
+        return registrationProvider.unregister();
     }
 
 
@@ -118,17 +136,6 @@ public class MainActivity extends Activity {
                 mProgressDialog.dismiss();
             }
         }
-    }
-
-    private String unregisterFromVipera() {
-        String apiKey = prefs.getString(Setting.API_KEY, "");
-        String registerId = prefs.getString(Setting.PROPERTY_REG_ID, "");
-        String url = prefs.getString(Setting.VIPERA_URL, "");
-        RegistrationProvider registrationProvider = new RegistrationProvider();
-        registrationProvider.setApiKey(apiKey);
-        registrationProvider.setRegisterId(registerId);
-        registrationProvider.setUrl(url);
-        return registrationProvider.unregister();
     }
 
 }

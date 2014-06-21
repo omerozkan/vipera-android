@@ -11,17 +11,18 @@ import android.os.SystemClock;
 import android.support.v4.app.NotificationCompat;
 import android.util.Log;
 
-import com.google.android.gms.drive.query.Filters;
 import com.google.android.gms.gcm.GoogleCloudMessaging;
 
 /**
  * Created by omer on 6/18/14.
  */
 public class GcmIntentService extends IntentService {
-    public static final int NOTIFICATION_ID = 1;
+    private static int UNIQUE_INT_PER_CALL = 1;
+    public static int NOTIFICATION_ID = 1;
     private static final String TAG = "GcmIntentService";
     private NotificationManager mNotificationManager;
     NotificationCompat.Builder builder;
+
     public GcmIntentService() {
         super("GcmIntentService");
     }
@@ -44,11 +45,11 @@ public class GcmIntentService extends IntentService {
              */
             if (GoogleCloudMessaging.
                     MESSAGE_TYPE_SEND_ERROR.equals(messageType)) {
-                sendNotification("Send error: " + extras.toString());
+               sendNotification("Send error: " + extras.toString(), null);
             } else if (GoogleCloudMessaging.
                     MESSAGE_TYPE_DELETED.equals(messageType)) {
                 sendNotification("Deleted messages on server: " +
-                        extras.toString());
+                        extras.toString(), null);
                 // If it's a regular GCM message, do some work.
             } else if (GoogleCloudMessaging.
                     MESSAGE_TYPE_MESSAGE.equals(messageType)) {
@@ -64,7 +65,10 @@ public class GcmIntentService extends IntentService {
                 Log.i(TAG, "Completed work @ " + SystemClock.elapsedRealtime());
                 // Post notification of received message.
                 String msg = extras.get("message").toString();
-                sendNotification(msg);
+
+
+
+                sendNotification(msg, extras);
                 Log.i(TAG, msg);
                 Log.i(TAG, "Received: " + extras.toString());
             }
@@ -76,12 +80,9 @@ public class GcmIntentService extends IntentService {
     // Put the message into a notification and post it.
     // This is just one simple example of what you might choose to do with
     // a GCM message.
-    private void sendNotification(String msg) {
+    private void sendNotification(String msg, Bundle extras) {
         mNotificationManager = (NotificationManager)
                 this.getSystemService(Context.NOTIFICATION_SERVICE);
-
-        PendingIntent contentIntent = PendingIntent.getActivity(this, 0,
-                new Intent(this, LoginActivity.class), 0);
 
         NotificationCompat.Builder mBuilder =
                 new NotificationCompat.Builder(this)
@@ -90,7 +91,25 @@ public class GcmIntentService extends IntentService {
                         .setStyle(new NotificationCompat.BigTextStyle()
                                 .bigText(msg))
                         .setContentText(msg)
-                        ;
+                        .setOnlyAlertOnce(false);
+
+        Context context = getApplicationContext();
+
+        if(extras != null) {
+            Intent intent = new Intent(this, ViewNotification.class);
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+
+            intent.putExtra("mobilePhone", extras.getString("patientMobilePhone", ""));
+            intent.putExtra("phone",extras.getString("patientPhone", ""));
+            intent.putExtra("patientName",extras.getString("patientName" ,""));
+            intent.putExtra("fieldName", extras.getString("fieldName", ""));
+            intent.putExtra("fieldUnit", extras.getString("fieldUnit" ,""));
+            intent.putExtra("fieldValue", extras.getString("value", ""));
+            PendingIntent contentIntent = PendingIntent.getActivity(this, UNIQUE_INT_PER_CALL++,
+                    intent, PendingIntent.FLAG_UPDATE_CURRENT);
+
+            mBuilder.setContentIntent(contentIntent);
+        }
         Notification notification = mBuilder.build();
         notification.defaults |= Notification.DEFAULT_SOUND;
         long[] vibrate = {0,100,200,300};
@@ -99,8 +118,7 @@ public class GcmIntentService extends IntentService {
         notification.ledOnMS = 300;
         notification.ledOffMS = 1000;
         notification.flags |= Notification.FLAG_SHOW_LIGHTS;
-        mBuilder.setContentIntent(contentIntent);
-        mNotificationManager.notify(NOTIFICATION_ID, notification);
+        mNotificationManager.notify(NOTIFICATION_ID++, notification );
     }
 
 }
