@@ -40,13 +40,10 @@ public class LoginActivity extends Activity {
     private Button button;
     private EditText apiKeyEditText;
     private EditText urlEditText;
-    private ProgressBar progressBar;
     private GoogleCloudMessaging gcm;
-    private AtomicInteger msgId = new AtomicInteger();
-    private SharedPreferences prefs;
+
     private String registerId;
     private ProgressDialog mProgressDialog;
-
 
     public String apiKey;
     private String loginResult;
@@ -62,9 +59,6 @@ public class LoginActivity extends Activity {
         apiKeyEditText = (EditText) findViewById(R.id.apiKeyEditText);
         urlEditText = (EditText) findViewById(R.id.urlEditText);
         button = (Button) findViewById(R.id.loginButton);
-        progressBar = (ProgressBar) findViewById(R.id.progressBar);
-
-        progressBar.setVisibility(View.GONE);
 
 
         button.setOnClickListener(new View.OnClickListener() {

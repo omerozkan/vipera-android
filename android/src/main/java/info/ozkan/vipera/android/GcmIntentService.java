@@ -112,7 +112,7 @@ public class GcmIntentService extends IntentService {
         }
         Notification notification = mBuilder.build();
         notification.defaults |= Notification.DEFAULT_SOUND;
-        long[] vibrate = {0,100,200,300};
+        long[] vibrate = {0,300,400,500, 1000};
         notification.vibrate = vibrate;
         notification.ledARGB = 0xff00ff00;
         notification.ledOnMS = 300;
