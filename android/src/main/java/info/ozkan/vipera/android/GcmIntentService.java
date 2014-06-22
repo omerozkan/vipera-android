@@ -106,7 +106,7 @@ public class GcmIntentService extends IntentService {
             intent.putExtra("fieldUnit", extras.getString("fieldUnit" ,""));
             intent.putExtra("fieldValue", extras.getString("value", ""));
             PendingIntent contentIntent = PendingIntent.getActivity(this, UNIQUE_INT_PER_CALL++,
-                    intent, PendingIntent.FLAG_UPDATE_CURRENT);
+                    intent, PendingIntent.FLAG_CANCEL_CURRENT);
 
             mBuilder.setContentIntent(contentIntent);
         }
